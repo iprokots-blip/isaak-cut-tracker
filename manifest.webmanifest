@@ -1,0 +1,9 @@
+{
+  "name": "Isaak Cut Tracker",
+  "short_name": "Cut Tracker",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#0b1630",
+  "description": "Live-synced calorie, macro, weight and workout tracker."
+}
