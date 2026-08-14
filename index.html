@@ -10,7 +10,10 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <title>Isaak Cut Tracker</title>
   <style>
-    *{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#101828;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1050px;margin:auto;padding:16px 14px 90px}.top,.row{display:flex;gap:9px;align-items:center}.top,.between{justify-content:space-between}.top h1{margin:0;font-size:24px}.muted,.small{color:#667085;font-size:12px}.pill{padding:7px 10px;border-radius:999px;background:#e7edf7;font-weight:700}.pill.live{background:#dcfce7;color:#166534}.tabs{display:flex;gap:5px;background:#fff;padding:6px;border-radius:14px;position:sticky;top:7px;z-index:9;margin:14px 0;box-shadow:0 6px 22px #0f172a12}.tabs button{flex:1;border:0;background:none;padding:10px;border-radius:10px;font-weight:700;color:#667085}.tabs button.on,.btn{background:#0b1630;color:#fff}.page{display:none}.page.on{display:block}.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.card{background:#fff;border:1px solid #dfe5ef;border-radius:16px;padding:15px;margin-bottom:12px}.kpi b{display:block;font-size:24px}.kpi span{font-size:11px;color:#667085}.input{width:100%;border:1px solid #dfe5ef;border-radius:10px;padding:10px;background:#fff}.btn{border:0;border-radius:10px;padding:10px 12px;font-weight:700}.btn.alt{background:#fff;color:#101828;border:1px solid #dfe5ef}.search{display:grid;grid-template-columns:1fr 150px;gap:8px}.scroll{max-height:520px;overflow:auto}.foodrow,.logrow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;border-top:1px solid #eef2f7;padding:10px 0}.notice{padding:10px;border-radius:10px;background:#eff6ff;color:#1e40af;font-size:12px}.warn{background:#fef3c7;color:#92400e}.danger{background:#fee2e2;color:#991b1b}.success{background:#dcfce7;color:#166534}.auth{position:fixed;inset:0;background:#0b1630cc;display:flex;align-items:center;justify-content:center;padding:18px;z-index:99}.authbox{max-width:420px;width:100%;background:#fff;border-radius:20px;padding:22px}.hidden{display:none!important}label{display:block;font-size:11px;color:#667085;font-weight:700;margin:8px 0 4px}canvas{width:100%;height:260px}.macro{font-weight:700;font-size:12px}@media(max-width:720px){.g4,.g2{grid-template-columns:1fr 1fr}.search{grid-template-columns:1fr}.tabs{position:fixed;bottom:0;top:auto;left:0;right:0;margin:0;border-radius:14px 14px 0 0;padding-bottom:calc(6px + env(safe-area-inset-bottom))}}
+    *{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}body{margin:0;background:#f5f7fb;color:#101828;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1050px;margin:auto;padding:16px 14px 90px;min-width:0}.top,.row{display:flex;gap:9px;align-items:center;min-width:0}.top,.between{justify-content:space-between}.top h1{margin:0;font-size:24px}.top>*,.row>*,.card>*,.foodrow>*,.logrow>*{min-width:0}.muted,.small{color:#667085;font-size:12px;overflow-wrap:anywhere}.pill{padding:7px 10px;border-radius:999px;background:#e7edf7;font-weight:700}.pill.live{background:#dcfce7;color:#166534}.tabs{display:flex;gap:5px;background:#fff;padding:6px;border-radius:14px;position:sticky;top:7px;z-index:9;margin:14px 0;box-shadow:0 6px 22px #0f172a12;min-width:0}.tabs button{flex:1;min-width:0;border:0;background:none;padding:10px;border-radius:10px;font-weight:700;color:#667085}.tabs button.on,.btn{background:#0b1630;color:#fff}.page{display:none;min-width:0}.page.on{display:block}.grid{display:grid;gap:12px;min-width:0}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:#fff;border:1px solid #dfe5ef;border-radius:16px;padding:15px;margin-bottom:12px;min-width:0;overflow:hidden}.kpi b{display:block;font-size:24px;overflow-wrap:anywhere}.kpi span{font-size:11px;color:#667085}.input{width:100%;min-width:0;max-width:100%;border:1px solid #dfe5ef;border-radius:10px;padding:10px;background:#fff}.btn{border:0;border-radius:10px;padding:10px 12px;font-weight:700;max-width:100%;white-space:normal}.btn.alt{background:#fff;color:#101828;border:1px solid #dfe5ef}.btn.remove{background:#fff;color:#b42318;border:1px solid #f3b5ae}.search{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:8px;min-width:0}.scroll{max-height:520px;overflow:auto;overflow-x:hidden}.foodrow,.logrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;border-top:1px solid #eef2f7;padding:10px 0;min-width:0}.notice{padding:10px;border-radius:10px;background:#eff6ff;color:#1e40af;font-size:12px;overflow-wrap:anywhere}.warn{background:#fef3c7;color:#92400e}.danger{background:#fee2e2;color:#991b1b}.success{background:#dcfce7;color:#166534}.auth{position:fixed;inset:0;background:#0b1630cc;display:flex;align-items:center;justify-content:center;padding:18px;z-index:99}.authbox{max-width:420px;width:100%;background:#fff;border-radius:20px;padding:22px;min-width:0}.hidden{display:none!important}label{display:block;font-size:11px;color:#667085;font-weight:700;margin:8px 0 4px}canvas{width:100%;max-width:100%;height:260px}.macro{font-weight:700;font-size:12px;text-align:right;overflow-wrap:anywhere;white-space:normal}.foodactions{display:flex;gap:8px;align-items:center;justify-content:flex-end;min-width:0}.foodactions .macro{min-width:0}.foodactions .btn{flex:0 0 auto}
+    @media(max-width:720px){
+      .wrap{padding:12px 10px 86px}.top,.between{flex-wrap:wrap}.top h1{font-size:21px}.top>.row{margin-left:auto;flex-wrap:wrap;justify-content:flex-end}.g2{grid-template-columns:minmax(0,1fr)}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.search{grid-template-columns:minmax(0,1fr)}.card{padding:12px;border-radius:14px}.kpi b{font-size:20px}.input{font-size:16px}.tabs{position:fixed;bottom:0;top:auto;left:0;right:0;margin:0;border-radius:14px 14px 0 0;padding-bottom:calc(6px + env(safe-area-inset-bottom))}.tabs button{font-size:12px;padding:10px 6px}.foodrow,.logrow{grid-template-columns:minmax(0,1fr) auto}.foodrow b,.logrow b{overflow-wrap:anywhere}.macro{max-width:42vw}.foodactions{max-width:48vw;flex-wrap:wrap;justify-content:flex-end}.foodactions .macro{max-width:100%}#lib .foodrow,#foods .foodrow,#logs .logrow{grid-template-columns:minmax(0,1fr)}#lib .foodactions,#foods .btn,#logs .btn{justify-self:start;max-width:100%}#lib .foodactions{width:100%;justify-content:space-between;flex-wrap:wrap}#lib .macro{max-width:100%;text-align:left}#date{max-width:155px}.authbox{max-width:100%;padding:18px}
+    }
   </style>
 </head>
 <body>
@@ -20,7 +23,7 @@
 <section id="foodsPage" class="page"><div class="card"><div class="row between"><div><h3>Food library</h3><div id="count" class="muted"></div></div><button id="showAdd" class="btn" type="button">Add custom food</button></div><input id="libq" class="input" placeholder="Search library" style="margin:10px 0"><div id="lib" class="scroll"></div></div><div id="addfood" class="card hidden"><div class="row between"><h3 style="margin:0">Add custom food</h3><button id="closeAdd" class="btn alt" type="button">Close</button></div><div id="foodmsg" class="notice success hidden" style="margin-top:10px">Custom food added and syncing.</div><div class="grid g2"><div><label>Name</label><input id="fn" class="input"></div><div><label>Serving</label><input id="fs" class="input" placeholder="1 tbsp / 100 g / 1 slice"></div><div><label>Protein g</label><input id="fp" class="input" type="number" step=".1"></div><div><label>Carbs g</label><input id="fc" class="input" type="number" step=".1"></div><div><label>Fat g</label><input id="ff" class="input" type="number" step=".1"></div><div><label>Calories (blank = 4/4/9)</label><input id="fk" class="input" type="number" step=".1"></div></div><button id="addf" class="btn" type="button" style="margin-top:10px">Add food</button></div></section>
 <section id="progress" class="page"><div class="grid g2"><div class="card"><h3>Weight progress</h3><canvas id="wc"></canvas></div><div class="card"><h3>Calories vs target</h3><canvas id="cc"></canvas></div></div></section>
 <section id="targets" class="page"><div class="grid g2"><div class="card"><h3>Goal</h3><label>Goal weight (kg)</label><input id="gw" class="input" type="number" step=".1"><label>Goal date</label><input id="gd" class="input" type="date"><button id="savetarget" class="btn" type="button" style="margin-top:10px">Update targets</button><div id="tstatus" style="margin-top:10px"></div></div><div class="card"><h3>Automatic targets</h3><div id="tvals"></div></div></div></section></div>
-<script src="./app.js?v=4"></script>
+<script src="./app.js?v=5"></script>
 <script>
 (function(){
   const showAdd=document.getElementById('showAdd');
@@ -39,6 +42,7 @@
   if(closeAdd&&addForm&&showAdd){
     closeAdd.onclick=function(){addForm.classList.add('hidden');showAdd.textContent='Add custom food';showAdd.scrollIntoView({behavior:'smooth',block:'center'});};
   }
+
   const checkBtn=document.getElementById('savecheck');
   const oldCheck=checkBtn&&checkBtn.onclick;
   if(checkBtn){
@@ -48,6 +52,7 @@
       if(m){m.classList.remove('hidden');clearTimeout(window.__checkMsgTimer);window.__checkMsgTimer=setTimeout(function(){m.classList.add('hidden');},2600);}
     };
   }
+
   const addBtn=document.getElementById('addf');
   const oldAdd=addBtn&&addBtn.onclick;
   if(addBtn){
@@ -61,6 +66,33 @@
       }
     };
   }
+
+  const originalRenderFoods=renderFoods;
+  renderFoods=function(){
+    let cats=[...new Set(state.foods.map(f=>f.category||'Other'))].sort(),cur=document.getElementById('cat').value;
+    document.getElementById('cat').innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option>${c}</option>`).join('');
+    document.getElementById('cat').value=cur;
+    document.getElementById('count').textContent=`${state.foods.length} foods`;
+    let q=document.getElementById('libq').value.toLowerCase();
+    document.getElementById('lib').innerHTML=state.foods.filter(f=>!q||(`${f.name} ${f.serving}`).toLowerCase().includes(q)).slice(0,180).map(f=>{
+      const custom=f.category==='Custom'||f.source==='Custom';
+      const action=custom?`<div class="foodactions"><div class="macro">${num(f.calories)} kcal · ${num(f.protein,1)}P ${num(f.carbs,1)}C ${num(f.fat,1)}F</div><button class="btn remove" type="button" onclick="deleteCustomFood('${f.id}')">Remove</button></div>`:`<div class="macro">${num(f.calories)} kcal · ${num(f.protein,1)}P ${num(f.carbs,1)}C ${num(f.fat,1)}F</div>`;
+      return `<div class="foodrow"><div><b>${f.name}</b><div class="small">${f.serving} · ${f.category||''}</div></div>${action}</div>`;
+    }).join('');
+  };
+
+  window.deleteCustomFood=function(id){
+    const f=state.foods.find(x=>x.id===id);
+    if(!f||!(f.category==='Custom'||f.source==='Custom'))return;
+    if(!confirm(`Remove "${f.name}" from your food library? Existing logged entries will stay in your history.`))return;
+    state.foods=state.foods.filter(x=>x.id!==id);
+    save();
+    renderAll();
+    const m=document.getElementById('foodmsg');
+    if(m){m.textContent='Custom food removed and syncing.';m.classList.remove('hidden');setTimeout(function(){m.classList.add('hidden');m.textContent='Custom food added and syncing.';},2600);}
+  };
+
+  if(typeof state!=='undefined'&&state)renderFoods();
 })();
 </script>
 </body></html>
