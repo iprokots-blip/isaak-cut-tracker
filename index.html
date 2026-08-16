@@ -25,6 +25,83 @@
 <section id="targets" class="page"><div class="grid g2"><div class="card"><h3>Goal</h3><label>Goal weight (kg)</label><input id="gw" class="input" type="number" step=".1"><label>Goal date</label><input id="gd" class="input" type="date"><button id="savetarget" class="btn" type="button" style="margin-top:10px">Update targets</button><div id="tstatus" style="margin-top:10px"></div></div><div class="card"><h3>Automatic targets</h3><div id="tvals"></div></div></div></section></div>
 <script src="./app.js?v=5"></script>
 <script>
+/* Sync guard: local changes always win until their exact version is saved. */
+let syncDirty=false;
+let localSyncVersion=0;
+let savedSyncVersion=0;
+let lastLocalChange=0;
+
+async function flushProtectedSave(){
+  if(!user||!state)return;
+  if(saving){timer=setTimeout(flushProtectedSave,120);return;}
+  saving=true;
+  const version=localSyncVersion;
+  const snapshot=JSON.parse(JSON.stringify(state));
+  try{
+    await jsonFetch('/rest/v1/app_state?user_id=eq.'+encodeURIComponent(user.id),{
+      method:'PATCH',
+      headers:{Prefer:'return=minimal'},
+      body:JSON.stringify({state:snapshot,updated_at:new Date().toISOString()})
+    },true);
+    savedSyncVersion=Math.max(savedSyncVersion,version);
+    if(savedSyncVersion>=localSyncVersion){
+      syncDirty=false;
+      status('Live','live');
+    }else{
+      status('Syncing…');
+      clearTimeout(timer);
+      timer=setTimeout(flushProtectedSave,60);
+    }
+  }catch(e){
+    syncDirty=true;
+    status('Sync error');
+    console.error(e);
+    clearTimeout(timer);
+    timer=setTimeout(flushProtectedSave,1500);
+  }finally{
+    saving=false;
+  }
+}
+
+save=function(){
+  if(!user||!state)return;
+  localSyncVersion++;
+  syncDirty=true;
+  lastLocalChange=Date.now();
+  clearTimeout(timer);
+  status('Syncing…');
+  timer=setTimeout(flushProtectedSave,180);
+};
+
+pullCloud=async function(){
+  if(!user||saving||syncDirty||Date.now()-lastLocalChange<800)return;
+  try{
+    const rows=await jsonFetch('/rest/v1/app_state?user_id=eq.'+encodeURIComponent(user.id)+'&select=state',{method:'GET'},true);
+    if(rows?.[0]?.state){
+      const base=await seed();
+      const incoming=mergeSeed(rows[0].state,base);
+      if(JSON.stringify(incoming)!==JSON.stringify(state)){
+        state=incoming;
+        renderAll();
+        status('Updated','live');
+        setTimeout(()=>{if(!syncDirty&&!saving)status('Live','live');},700);
+      }
+    }
+  }catch(e){
+    if(!syncDirty)status('Offline');
+  }
+};
+
+startPolling=function(){
+  clearInterval(pollTimer);
+  pollTimer=setInterval(()=>{if(!syncDirty&&!saving)pullCloud();},7000);
+};
+
+window.addEventListener('online',()=>{
+  if(syncDirty&&!saving){clearTimeout(timer);timer=setTimeout(flushProtectedSave,50);}
+});
+</script>
+<script>
 (function(){
   const showAdd=document.getElementById('showAdd');
   const addForm=document.getElementById('addfood');
@@ -67,7 +144,6 @@
     };
   }
 
-  const originalRenderFoods=renderFoods;
   renderFoods=function(){
     let cats=[...new Set(state.foods.map(f=>f.category||'Other'))].sort(),cur=document.getElementById('cat').value;
     document.getElementById('cat').innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option>${c}</option>`).join('');
