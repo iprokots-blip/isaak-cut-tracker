@@ -1,174 +1,128 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b1630">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Cut Tracker">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <title>Isaak Cut Tracker</title>
-  <style>
-    *{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}body{margin:0;background:#f5f7fb;color:#101828;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1050px;margin:auto;padding:16px 14px 90px;min-width:0}.top,.row{display:flex;gap:9px;align-items:center;min-width:0}.top,.between{justify-content:space-between}.top h1{margin:0;font-size:24px}.top>*,.row>*,.card>*,.foodrow>*,.logrow>*{min-width:0}.muted,.small{color:#667085;font-size:12px;overflow-wrap:anywhere}.pill{padding:7px 10px;border-radius:999px;background:#e7edf7;font-weight:700}.pill.live{background:#dcfce7;color:#166534}.tabs{display:flex;gap:5px;background:#fff;padding:6px;border-radius:14px;position:sticky;top:7px;z-index:9;margin:14px 0;box-shadow:0 6px 22px #0f172a12;min-width:0}.tabs button{flex:1;min-width:0;border:0;background:none;padding:10px;border-radius:10px;font-weight:700;color:#667085}.tabs button.on,.btn{background:#0b1630;color:#fff}.page{display:none;min-width:0}.page.on{display:block}.grid{display:grid;gap:12px;min-width:0}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:#fff;border:1px solid #dfe5ef;border-radius:16px;padding:15px;margin-bottom:12px;min-width:0;overflow:hidden}.kpi b{display:block;font-size:24px;overflow-wrap:anywhere}.kpi span{font-size:11px;color:#667085}.input{width:100%;min-width:0;max-width:100%;border:1px solid #dfe5ef;border-radius:10px;padding:10px;background:#fff}.btn{border:0;border-radius:10px;padding:10px 12px;font-weight:700;max-width:100%;white-space:normal}.btn.alt{background:#fff;color:#101828;border:1px solid #dfe5ef}.btn.remove{background:#fff;color:#b42318;border:1px solid #f3b5ae}.search{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:8px;min-width:0}.scroll{max-height:520px;overflow:auto;overflow-x:hidden}.foodrow,.logrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;border-top:1px solid #eef2f7;padding:10px 0;min-width:0}.notice{padding:10px;border-radius:10px;background:#eff6ff;color:#1e40af;font-size:12px;overflow-wrap:anywhere}.warn{background:#fef3c7;color:#92400e}.danger{background:#fee2e2;color:#991b1b}.success{background:#dcfce7;color:#166534}.auth{position:fixed;inset:0;background:#0b1630cc;display:flex;align-items:center;justify-content:center;padding:18px;z-index:99}.authbox{max-width:420px;width:100%;background:#fff;border-radius:20px;padding:22px;min-width:0}.hidden{display:none!important}label{display:block;font-size:11px;color:#667085;font-weight:700;margin:8px 0 4px}canvas{width:100%;max-width:100%;height:260px}.macro{font-weight:700;font-size:12px;text-align:right;overflow-wrap:anywhere;white-space:normal}.foodactions{display:flex;gap:8px;align-items:center;justify-content:flex-end;min-width:0}.foodactions .macro{min-width:0}.foodactions .btn{flex:0 0 auto}
-    @media(max-width:720px){
-      .wrap{padding:12px 10px 86px}.top,.between{flex-wrap:wrap}.top h1{font-size:21px}.top>.row{margin-left:auto;flex-wrap:wrap;justify-content:flex-end}.g2{grid-template-columns:minmax(0,1fr)}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.search{grid-template-columns:minmax(0,1fr)}.card{padding:12px;border-radius:14px}.kpi b{font-size:20px}.input{font-size:16px}.tabs{position:fixed;bottom:0;top:auto;left:0;right:0;margin:0;border-radius:14px 14px 0 0;padding-bottom:calc(6px + env(safe-area-inset-bottom))}.tabs button{font-size:12px;padding:10px 6px}.foodrow,.logrow{grid-template-columns:minmax(0,1fr) auto}.foodrow b,.logrow b{overflow-wrap:anywhere}.macro{max-width:42vw}.foodactions{max-width:48vw;flex-wrap:wrap;justify-content:flex-end}.foodactions .macro{max-width:100%}#lib .foodrow,#foods .foodrow,#logs .logrow{grid-template-columns:minmax(0,1fr)}#lib .foodactions,#foods .btn,#logs .btn{justify-self:start;max-width:100%}#lib .foodactions{width:100%;justify-content:space-between;flex-wrap:wrap}#lib .macro{max-width:100%;text-align:left}#date{max-width:155px}.authbox{max-width:100%;padding:18px}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1630">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cut Tracker">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>Isaak Cut Tracker</title>
+<style>
+*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}body{margin:0;background:#f5f7fb;color:#101828;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1080px;margin:auto;padding:16px 14px 94px;min-width:0}.top,.row{display:flex;gap:9px;align-items:center;min-width:0}.top,.between{justify-content:space-between}.top h1{margin:0;font-size:24px}.top>*,.row>*,.card>*,.foodrow>*,.logrow>*{min-width:0}.muted,.small{color:#667085;font-size:12px;overflow-wrap:anywhere}.pill{padding:7px 10px;border-radius:999px;background:#e7edf7;font-weight:700}.pill.live{background:#dcfce7;color:#166534}.tabs{display:flex;gap:5px;background:#fff;padding:6px;border-radius:14px;position:sticky;top:7px;z-index:9;margin:14px 0;box-shadow:0 6px 22px #0f172a12;min-width:0}.tabs button{flex:1;min-width:0;border:0;background:none;padding:10px;border-radius:10px;font-weight:700;color:#667085}.tabs button.on,.btn{background:#0b1630;color:#fff}.page{display:none;min-width:0}.page.on{display:block}.grid{display:grid;gap:12px;min-width:0}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{background:#fff;border:1px solid #dfe5ef;border-radius:16px;padding:15px;margin-bottom:12px;min-width:0;overflow:hidden}.card h3{margin-top:0}.kpi b{display:block;font-size:24px;overflow-wrap:anywhere}.kpi span{font-size:11px;color:#667085}.input{width:100%;min-width:0;max-width:100%;border:1px solid #dfe5ef;border-radius:10px;padding:10px;background:#fff}.btn{border:0;border-radius:10px;padding:10px 12px;font-weight:700;max-width:100%;white-space:normal}.btn.alt{background:#fff;color:#101828;border:1px solid #dfe5ef}.btn.remove{background:#fff;color:#b42318;border:1px solid #f3b5ae}.search{display:grid;grid-template-columns:minmax(0,1fr) 160px;gap:8px;min-width:0}.scroll{max-height:520px;overflow:auto;overflow-x:hidden}.foodrow,.logrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;border-top:1px solid #eef2f7;padding:10px 0;min-width:0}.notice{padding:10px;border-radius:10px;background:#eff6ff;color:#1e40af;font-size:12px;overflow-wrap:anywhere}.warn{background:#fef3c7;color:#92400e}.danger{background:#fee2e2;color:#991b1b}.success{background:#dcfce7;color:#166534}.auth{position:fixed;inset:0;background:#0b1630cc;display:flex;align-items:center;justify-content:center;padding:18px;z-index:99}.authbox{max-width:420px;width:100%;background:#fff;border-radius:20px;padding:22px;min-width:0}.hidden{display:none!important}label{display:block;font-size:11px;color:#667085;font-weight:700;margin:8px 0 4px}canvas{width:100%;max-width:100%;height:260px}.macro{font-weight:700;font-size:12px;text-align:right;overflow-wrap:anywhere;white-space:normal}.foodactions{display:flex;gap:8px;align-items:center;justify-content:flex-end;min-width:0}.foodactions .macro{min-width:0}.foodactions .btn{flex:0 0 auto}.stat{background:#f8fafc;border:1px solid #e6eaf0;border-radius:12px;padding:11px;min-width:0}.stat span{display:block;font-size:11px;color:#667085}.stat b{display:block;font-size:18px;margin-top:3px;overflow-wrap:anywhere}.progress-track{height:18px;border-radius:999px;background:#e8edf5;overflow:hidden;margin:10px 0}.progress-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#0b1630,#475f91);transition:width .35s ease}.big-num{font-size:28px;font-weight:800}.section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.tinycaps{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#667085;font-weight:800}.activity-range{font-size:20px;font-weight:800}.spacer8{height:8px}
+@media(max-width:720px){.wrap{padding:12px 10px 88px}.top,.between{flex-wrap:wrap}.top h1{font-size:21px}.top>.row{margin-left:auto;flex-wrap:wrap;justify-content:flex-end}.g2,.g3{grid-template-columns:minmax(0,1fr)}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.search{grid-template-columns:minmax(0,1fr)}.card{padding:12px;border-radius:14px}.kpi b{font-size:20px}.input{font-size:16px}.tabs{position:fixed;bottom:0;top:auto;left:0;right:0;margin:0;border-radius:14px 14px 0 0;padding-bottom:calc(6px + env(safe-area-inset-bottom))}.tabs button{font-size:12px;padding:10px 6px}.foodrow,.logrow{grid-template-columns:minmax(0,1fr) auto}.foodrow b,.logrow b{overflow-wrap:anywhere}.macro{max-width:42vw}.foodactions{max-width:48vw;flex-wrap:wrap;justify-content:flex-end}.foodactions .macro{max-width:100%}#lib .foodrow,#foods .foodrow,#logs .logrow{grid-template-columns:minmax(0,1fr)}#lib .foodactions,#foods .btn,#logs .btn{justify-self:start;max-width:100%}#lib .foodactions{width:100%;justify-content:space-between;flex-wrap:wrap}#lib .macro{max-width:100%;text-align:left}#date{max-width:155px}.authbox{max-width:100%;padding:18px}.stat b{font-size:16px}.big-num{font-size:24px}}
+</style>
 </head>
 <body>
 <div id="auth" class="auth"><div class="authbox"><h2>Isaak Cut Tracker</h2><p class="muted">Use the same account on your phone and laptop. Everything syncs automatically.</p><label>Email</label><input id="email" class="input" type="email" autocomplete="email"><label>Password</label><input id="pass" class="input" type="password" autocomplete="current-password"><div id="amsg" class="notice" style="margin:10px 0">First time? Create an account, then use the same login everywhere.</div><div class="row"><button id="signin" class="btn" type="button">Sign in</button><button id="signup" class="btn alt" type="button">Create account</button></div></div></div>
-<div class="wrap"><div class="top"><div><h1>Isaak Cut Tracker</h1><div class="muted">Live synced across devices</div></div><div class="row"><span id="sync" class="pill">Offline</span><button id="signout" class="btn alt hidden" type="button">Sign out</button></div></div><div class="tabs"><button data-p="today" class="on" type="button">Today</button><button data-p="foods" type="button">Foods</button><button data-p="progress" type="button">Progress</button><button data-p="targets" type="button">Targets</button></div>
-<section id="today" class="page on"><div class="row between"><div><b id="dateText"></b><div class="muted">Tap a date to log another day</div></div><input id="date" class="input" type="date" style="width:auto"></div><div id="kpis" class="grid g4" style="margin-top:12px"></div><div class="grid g2" style="margin-top:12px"><div class="card"><h3>Log food</h3><div class="search"><input id="q" class="input" placeholder="Search foods"><select id="cat" class="input"><option value="">All categories</option></select></div><div id="foods" class="scroll"></div></div><div class="card"><h3>Logged</h3><div id="logs"></div></div></div><div class="grid g2"><div class="card"><h3>Check-in</h3><label>Weight (kg)</label><input id="weight" class="input" type="number" step=".1"><label>Steps</label><input id="steps" class="input" type="number"><label>Workout</label><select id="workout" class="input"><option></option><option>Push</option><option>Legs</option><option>Pull</option><option>Arms / Shoulders / Biceps</option><option>Upper</option><option>Rest</option></select><label>Minutes</label><input id="mins" class="input" type="number"><button id="savecheck" class="btn" type="button" style="margin-top:10px">Save check-in</button><div id="checkmsg" class="notice success hidden" style="margin-top:10px">Check-in saved and syncing.</div></div><div class="card"><h3>Daily summary</h3><div id="summary"></div></div></div></section>
-<section id="foodsPage" class="page"><div class="card"><div class="row between"><div><h3>Food library</h3><div id="count" class="muted"></div></div><button id="showAdd" class="btn" type="button">Add custom food</button></div><input id="libq" class="input" placeholder="Search library" style="margin:10px 0"><div id="lib" class="scroll"></div></div><div id="addfood" class="card hidden"><div class="row between"><h3 style="margin:0">Add custom food</h3><button id="closeAdd" class="btn alt" type="button">Close</button></div><div id="foodmsg" class="notice success hidden" style="margin-top:10px">Custom food added and syncing.</div><div class="grid g2"><div><label>Name</label><input id="fn" class="input"></div><div><label>Serving</label><input id="fs" class="input" placeholder="1 tbsp / 100 g / 1 slice"></div><div><label>Protein g</label><input id="fp" class="input" type="number" step=".1"></div><div><label>Carbs g</label><input id="fc" class="input" type="number" step=".1"></div><div><label>Fat g</label><input id="ff" class="input" type="number" step=".1"></div><div><label>Calories (blank = 4/4/9)</label><input id="fk" class="input" type="number" step=".1"></div></div><button id="addf" class="btn" type="button" style="margin-top:10px">Add food</button></div></section>
-<section id="progress" class="page"><div class="grid g2"><div class="card"><h3>Weight progress</h3><canvas id="wc"></canvas></div><div class="card"><h3>Calories vs target</h3><canvas id="cc"></canvas></div></div></section>
-<section id="targets" class="page"><div class="grid g2"><div class="card"><h3>Goal</h3><label>Goal weight (kg)</label><input id="gw" class="input" type="number" step=".1"><label>Goal date</label><input id="gd" class="input" type="date"><button id="savetarget" class="btn" type="button" style="margin-top:10px">Update targets</button><div id="tstatus" style="margin-top:10px"></div></div><div class="card"><h3>Automatic targets</h3><div id="tvals"></div></div></div></section></div>
-<script src="./app.js?v=5"></script>
+<div class="wrap">
+<div class="top"><div><h1>Isaak Cut Tracker</h1><div class="muted">Melbourne time · live synced across devices</div></div><div class="row"><span id="sync" class="pill">Offline</span><button id="signout" class="btn alt hidden" type="button">Sign out</button></div></div>
+<div class="tabs"><button data-p="today" class="on" type="button">Today</button><button data-p="foods" type="button">Foods</button><button data-p="progress" type="button">Progress</button><button data-p="targets" type="button">Targets</button></div>
+<section id="today" class="page on">
+<div class="row between"><div><b id="dateText"></b><div class="muted">Dates use Australia/Melbourne time. You can still move backward or forward.</div></div><input id="date" class="input" type="date" style="width:auto"></div>
+<div id="kpis" class="grid g4" style="margin-top:12px"></div>
+<div class="grid g2" style="margin-top:12px"><div class="card"><h3>Log food</h3><div class="search"><input id="q" class="input" placeholder="Search 1,000 foods"><select id="cat" class="input"><option value="">All categories</option></select></div><div id="foods" class="scroll"></div></div><div class="card"><h3>Logged</h3><div id="logs"></div></div></div>
+<div class="grid g2"><div class="card"><h3>Check-in</h3><label>Weight (kg)</label><input id="weight" class="input" type="number" step=".1"><div class="muted">Saving a new weight recalculates calories and P / C / F immediately.</div><label>Steps</label><input id="steps" class="input" type="number"><label>Workout</label><select id="workout" class="input"><option></option><option>Push</option><option>Legs</option><option>Pull</option><option>Arms / Shoulders / Biceps</option><option>Upper</option><option>Rest</option></select><label>Workout intensity</label><select id="intensity" class="input"><option>Light</option><option selected>Moderate</option><option>Hard</option><option>Very Hard</option></select><label>Workout minutes</label><input id="mins" class="input" type="number"><button id="savecheck" class="btn" type="button" style="margin-top:10px">Save check-in + recalculate</button><div id="checkmsg" class="notice success hidden" style="margin-top:10px">Check-in saved, targets recalculated and syncing.</div><div id="activityNow" class="notice" style="margin-top:10px"></div></div><div class="card"><h3>Daily summary</h3><div id="summary"></div></div></div>
+</section>
+<section id="foodsPage" class="page"><div class="card"><div class="row between"><div><h3>Food library</h3><div id="count" class="muted"></div></div><button id="showAdd" class="btn" type="button">Add custom food</button></div><input id="libq" class="input" placeholder="Search library" style="margin:10px 0"><div id="lib" class="scroll"></div></div><div id="addfood" class="card hidden"><div class="row between"><h3 style="margin:0">Add custom food</h3><button id="closeAdd" class="btn alt" type="button">Close</button></div><div id="foodmsg" class="notice success hidden" style="margin-top:10px">Custom food added and syncing.</div><div class="grid g2"><div><label>Name</label><input id="fn" class="input"></div><div><label>Serving</label><input id="fs" class="input" placeholder="1 biscuit (~15 g) / 100 g / 1 slice"></div><div><label>Protein g</label><input id="fp" class="input" type="number" step=".1"></div><div><label>Carbs g</label><input id="fc" class="input" type="number" step=".1"></div><div><label>Fat g</label><input id="ff" class="input" type="number" step=".1"></div><div><label>Calories (blank = 4/4/9)</label><input id="fk" class="input" type="number" step=".1"></div></div><button id="addf" class="btn" type="button" style="margin-top:10px">Add food</button></div></section>
+<section id="progress" class="page">
+<div class="card"><div class="section-title"><div><div class="tinycaps">Goal progress</div><div id="goalHeadline" class="big-num"></div></div><div id="goalDates" class="muted"></div></div><div class="progress-track"><div id="goalBar" class="progress-fill"></div></div><div id="goalProgressText" class="row between"></div></div>
+<div id="forecastStats" class="grid g4"></div>
+<div class="grid g2" style="margin-top:12px"><div class="card"><h3>Weight progress</h3><canvas id="wc"></canvas></div><div class="card"><h3>Calories vs target</h3><canvas id="cc"></canvas></div></div>
+<div class="card"><h3>Steps & workout burn estimate</h3><div id="activityProgress"></div><div class="notice" style="margin-top:10px">Activity calories are shown separately from your food target so they are not automatically double-counted into maintenance.</div></div>
+</section>
+<section id="targets" class="page"><div class="grid g2"><div class="card"><h3>Goal</h3><label>Goal weight (kg)</label><input id="gw" class="input" type="number" step=".1"><label>Selected goal date</label><input id="gd" class="input" type="date"><button id="savetarget" class="btn" type="button" style="margin-top:10px">Update targets</button><div id="tstatus" style="margin-top:10px"></div></div><div class="card"><h3>Automatic targets & forecast</h3><div id="tvals"></div></div></div></section>
+</div>
+<script src="./app.js?v=7"></script>
 <script>
-/* Sync guard: local changes always win until their exact version is saved. */
-let syncDirty=false;
-let localSyncVersion=0;
-let savedSyncVersion=0;
-let lastLocalChange=0;
-
+/* Protected cloud sync: local edits cannot be replaced by an older cloud pull before saving. */
+let syncDirty=false,localSyncVersion=0,savedSyncVersion=0,lastLocalChange=0;
 async function flushProtectedSave(){
-  if(!user||!state)return;
-  if(saving){timer=setTimeout(flushProtectedSave,120);return;}
-  saving=true;
-  const version=localSyncVersion;
-  const snapshot=JSON.parse(JSON.stringify(state));
-  try{
-    await jsonFetch('/rest/v1/app_state?user_id=eq.'+encodeURIComponent(user.id),{
-      method:'PATCH',
-      headers:{Prefer:'return=minimal'},
-      body:JSON.stringify({state:snapshot,updated_at:new Date().toISOString()})
-    },true);
-    savedSyncVersion=Math.max(savedSyncVersion,version);
-    if(savedSyncVersion>=localSyncVersion){
-      syncDirty=false;
-      status('Live','live');
-    }else{
-      status('Syncing…');
-      clearTimeout(timer);
-      timer=setTimeout(flushProtectedSave,60);
-    }
-  }catch(e){
-    syncDirty=true;
-    status('Sync error');
-    console.error(e);
-    clearTimeout(timer);
-    timer=setTimeout(flushProtectedSave,1500);
-  }finally{
-    saving=false;
-  }
+ if(!user||!state)return;
+ if(saving){timer=setTimeout(flushProtectedSave,120);return;}
+ saving=true;
+ const version=localSyncVersion,snapshot=JSON.parse(JSON.stringify(state));
+ try{
+  await jsonFetch('/rest/v1/app_state?user_id=eq.'+encodeURIComponent(user.id),{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({state:snapshot,updated_at:new Date().toISOString()})},true);
+  savedSyncVersion=Math.max(savedSyncVersion,version);
+  if(savedSyncVersion>=localSyncVersion){syncDirty=false;status('Live','live')}else{status('Syncing…');clearTimeout(timer);timer=setTimeout(flushProtectedSave,60)}
+ }catch(e){syncDirty=true;status('Sync error');console.error(e);clearTimeout(timer);timer=setTimeout(flushProtectedSave,1500)}finally{saving=false}
+}
+save=function(){if(!user||!state)return;localSyncVersion++;syncDirty=true;lastLocalChange=Date.now();clearTimeout(timer);status('Syncing…');timer=setTimeout(flushProtectedSave,180)};
+pullCloud=async function(){
+ if(!user||saving||syncDirty||Date.now()-lastLocalChange<800)return;
+ try{const rows=await jsonFetch('/rest/v1/app_state?user_id=eq.'+encodeURIComponent(user.id)+'&select=state',{method:'GET'},true);if(rows?.[0]?.state){const base=await seed(),incoming=mergeSeed(rows[0].state,base);if(JSON.stringify(incoming)!==JSON.stringify(state)){state=incoming;renderAll();status('Updated','live');setTimeout(()=>{if(!syncDirty&&!saving)status('Live','live')},700)}}}catch(e){if(!syncDirty)status('Offline')}
+};
+startPolling=function(){clearInterval(pollTimer);pollTimer=setInterval(()=>{if(!syncDirty&&!saving)pullCloud()},7000)};
+window.addEventListener('online',()=>{if(syncDirty&&!saving){clearTimeout(timer);timer=setTimeout(flushProtectedSave,50)}});
+
+/* Melbourne date helpers. */
+function melToday(){const p=Object.fromEntries(new Intl.DateTimeFormat('en-AU',{timeZone:'Australia/Melbourne',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return `${p.year}-${p.month}-${p.day}`}
+function dayNo(s){if(!s)return NaN;const a=s.split('-').map(Number);return Date.UTC(a[0],a[1]-1,a[2])/86400000}
+function daysMel(a,b){return Math.round(dayNo(b)-dayNo(a))}
+function addMel(s,n){const d=new Date((dayNo(s)+n)*86400000);return d.toISOString().slice(0,10)}
+function prettyDate(s){if(!s)return '—';return new Intl.DateTimeFormat('en-AU',{timeZone:'Australia/Melbourne',day:'numeric',month:'short',year:'numeric'}).format(new Date(s+'T00:00:00Z'))}
+function longDate(s){return new Intl.DateTimeFormat('en-AU',{timeZone:'Australia/Melbourne',weekday:'long',day:'numeric',month:'long'}).format(new Date(s+'T00:00:00Z'))}
+function clamp(v,a,b){return Math.min(b,Math.max(a,v))}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+weight=function(date=melToday()){let a=Object.entries(state.weights||{}).filter(([d,v])=>d<=date&&v?.weight).sort((a,b)=>a[0].localeCompare(b[0]));return a.length?+a[a.length-1][1].weight:+state.settings.startWeight};
+
+target=function(){
+ const s=state.settings,today=melToday(),w=weight(today),bf=clamp(+s.bodyFat||.22,0,.7),lean=w*(1-bf),katch=370+21.6*lean,mif=s.sex==='Female'?10*w+6.25*(+s.heightCm||169)-5*(+s.age||20)-161:10*w+6.25*(+s.heightCm||169)-5*(+s.age||20)+5,bmr=(katch+mif)/2;
+ const maint=s.manualMaintenance?+s.manualMaintenance:(+s.maintenanceAtStart||2600)*Math.pow(w/(+s.startWeight||80),.75),selectedDays=Math.max(0,daysMel(today,s.goalDate)),lose=Math.max(0,w-(+s.goalWeight||65)),raw=selectedDays?maint-lose*7700/selectedDays:maint,cal=Math.max(bmr,raw),def=Math.max(0,maint-cal),dailyLoss=def/7700,weeklyDef=def*7,weeklyLoss=dailyLoss*7,monthDays=365/12,monthlyDef=def*monthDays,monthlyLoss=dailyLoss*monthDays;
+ const pro=w*2.2*.9,fat=w*2.2*.4,carb=Math.max(0,(cal-pro*4-fat*9)/4),projectedDays=lose<=0?0:(dailyLoss>0?Math.ceil(lose/dailyLoss):0),projectedGoal=lose<=0?today:(projectedDays?addMel(today,projectedDays):s.goalDate),start=+s.startWeight||w,goal=+s.goalWeight||65,den=start-goal,progress=den>0?clamp((start-w)/den,0,1):0,kgLost=Math.max(0,start-w),kgToGo=Math.max(0,w-goal);
+ let st=w<=goal?'GOAL REACHED':selectedDays<=0?'CHOOSE A FUTURE GOAL DATE':raw<bmr?'SELECTED DATE IS TOO AGGRESSIVE — BMR FLOOR USED':'TARGET RECALCULATES WITH EACH WEIGH-IN';
+ return{today,w,bmr,maint,raw,cal,def,dailyLoss,weeklyDef,weeklyLoss,monthlyDef,monthlyLoss,pro,fat,carb,projectedDays,projectedGoal,selectedDays,progress,kgLost,kgToGo,st};
+};
+
+function activityEstimate(date){
+ const a=state.activities?.[date]||{},w=weight(date),steps=+a.steps||0,stride=+state.settings.strideM||.78,km=steps*stride/1000,stepLow=w*km*.4,stepHigh=w*km*.6,mins=+a.minutes||0,intensity=a.intensity||'Moderate',metMap={Light:3.5,Moderate:5,Hard:6.5,'Very Hard':8},met=metMap[intensity]||5,hasWorkout=a.workout&&a.workout!=='Rest'&&mins>0,mid=hasWorkout?met*3.5*w/200*mins:0,workoutLow=mid*.85,workoutHigh=mid*1.15;
+ return{steps,km,mins,intensity,workout:a.workout||'',stepLow,stepHigh,workoutLow,workoutHigh,totalLow:stepLow+workoutLow,totalHigh:stepHigh+workoutHigh};
 }
 
-save=function(){
-  if(!user||!state)return;
-  localSyncVersion++;
-  syncDirty=true;
-  lastLocalChange=Date.now();
-  clearTimeout(timer);
-  status('Syncing…');
-  timer=setTimeout(flushProtectedSave,180);
+searchFoods=function(){let q=$('q').value.toLowerCase().trim(),c=$('cat').value,list=(state.foods||[]).filter(f=>(!q||(`${f.name} ${f.serving} ${f.category||''}`).toLowerCase().includes(q))&&(!c||f.category===c)).slice(0,120);$('foods').innerHTML=list.map(f=>`<div class="foodrow"><div><b>${esc(f.name)}</b><div class="small">${esc(f.serving)} · ${num(f.calories)} kcal · ${num(f.protein,1)}P ${num(f.carbs,1)}C ${num(f.fat,1)}F</div></div><button class="btn" type="button" onclick="addFood('${f.id}')">Add</button></div>`).join('')||'<div class="notice">No matching foods.</div>'};
+
+renderToday=function(){
+ const d=state.selectedDate||melToday();$('date').value=d;$('dateText').textContent=longDate(d);const t=target(),x=totals(d),a=[["Calories",x.k,t.cal,"kcal"],["Protein",x.p,t.pro,"g"],["Carbs",x.c,t.carb,"g"],["Fat",x.f,t.fat,"g"]];
+ $('kpis').innerHTML=a.map(v=>`<div class="card kpi"><span>${v[0]}</span><b>${num(v[1],v[0]==='Calories'?0:1)} ${v[3]}</b><span>Target ${num(v[2],v[0]==='Calories'?0:1)}</span></div>`).join('');
+ $('logs').innerHTML=logs(d).map(l=>`<div class="logrow"><div><b>${esc(l.foodName)}</b><div class="small">${num(l.qty,2)} × ${esc(l.serving||'serve')} · ${num(l.calories)} kcal · ${num(l.protein,1)}P ${num(l.carbs,1)}C ${num(l.fat,1)}F</div></div><button class="btn alt" type="button" onclick="delLog('${l.id}')">Remove</button></div>`).join('')||'<div class="notice">Nothing logged yet.</div>';
+ const wr=state.weights?.[d]?.weight??'',ac=state.activities?.[d]||{};$('weight').value=wr;$('steps').value=ac.steps||'';$('workout').value=ac.workout||'';$('mins').value=ac.minutes||'';$('intensity').value=ac.intensity||'Moderate';
+ const ae=activityEstimate(d),activityText=(ae.totalHigh>0)?`Estimated activity burn: <b>${num(ae.totalLow)}–${num(ae.totalHigh)} kcal</b> · steps ${num(ae.stepLow)}–${num(ae.stepHigh)}${ae.workoutLow>0?` · workout ${num(ae.workoutLow)}–${num(ae.workoutHigh)}`:''}`:'Enter steps and/or a workout to see an estimated calorie-burn range.';$('activityNow').innerHTML=activityText;
+ $('summary').innerHTML=`<div class="foodrow"><span>Current maintenance</span><b>${num(t.maint)} kcal</b></div><div class="foodrow"><span>Current calorie target</span><b>${num(t.cal)} kcal</b></div><div class="foodrow"><span>Food logged</span><b>${num(x.k)} kcal</b></div><div class="foodrow"><span>Remaining to target</span><b>${num(t.cal-x.k)} kcal</b></div><div class="foodrow"><span>Planned daily deficit</span><b>${num(t.def)} kcal</b></div>`;
+ searchFoods();
 };
 
-pullCloud=async function(){
-  if(!user||saving||syncDirty||Date.now()-lastLocalChange<800)return;
-  try{
-    const rows=await jsonFetch('/rest/v1/app_state?user_id=eq.'+encodeURIComponent(user.id)+'&select=state',{method:'GET'},true);
-    if(rows?.[0]?.state){
-      const base=await seed();
-      const incoming=mergeSeed(rows[0].state,base);
-      if(JSON.stringify(incoming)!==JSON.stringify(state)){
-        state=incoming;
-        renderAll();
-        status('Updated','live');
-        setTimeout(()=>{if(!syncDirty&&!saving)status('Live','live');},700);
-      }
-    }
-  }catch(e){
-    if(!syncDirty)status('Offline');
-  }
+renderFoods=function(){
+ let cats=[...new Set((state.foods||[]).map(f=>f.category||'Other'))].sort(),cur=$('cat').value;$('cat').innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option>${esc(c)}</option>`).join('');$('cat').value=cur;$('count').textContent=`${state.foods.length.toLocaleString()} foods · single-item entries show their approximate grams`;
+ let q=$('libq').value.toLowerCase().trim();$('lib').innerHTML=state.foods.filter(f=>!q||(`${f.name} ${f.serving} ${f.category||''}`).toLowerCase().includes(q)).slice(0,220).map(f=>{const custom=f.category==='Custom'||f.source==='Custom'||f.source==='Estimated from photo';const action=custom?`<div class="foodactions"><div class="macro">${num(f.calories)} kcal · ${num(f.protein,1)}P ${num(f.carbs,1)}C ${num(f.fat,1)}F</div><button class="btn remove" type="button" onclick="deleteCustomFood('${f.id}')">Remove</button></div>`:`<div class="macro">${num(f.calories)} kcal · ${num(f.protein,1)}P ${num(f.carbs,1)}C ${num(f.fat,1)}F</div>`;return `<div class="foodrow"><div><b>${esc(f.name)}</b><div class="small">${esc(f.serving)} · ${esc(f.category||'')}</div></div>${action}</div>`}).join('')||'<div class="notice">No matching foods.</div>';
 };
 
-startPolling=function(){
-  clearInterval(pollTimer);
-  pollTimer=setInterval(()=>{if(!syncDirty&&!saving)pullCloud();},7000);
-};
+function renderForecastCards(){const t=target();$('forecastStats').innerHTML=[["Daily deficit",`${num(t.def)} kcal`],["Daily loss",`${num(t.dailyLoss,2)} kg`],["Weekly deficit",`${num(t.weeklyDef)} kcal`],["Weekly loss",`${num(t.weeklyLoss,2)} kg`],["Monthly deficit",`${num(t.monthlyDef)} kcal`],["Monthly loss",`${num(t.monthlyLoss,2)} kg`],["Projected goal",prettyDate(t.projectedGoal)],["Projected days left",`${t.projectedDays} days`]].map(v=>`<div class="stat"><span>${v[0]}</span><b>${v[1]}</b></div>`).join('')}
 
-window.addEventListener('online',()=>{
-  if(syncDirty&&!saving){clearTimeout(timer);timer=setTimeout(flushProtectedSave,50);}
-});
+function renderProgressExtras(){
+ const t=target(),pct=Math.round(t.progress*100);$('goalHeadline').textContent=`${pct}% to ${num(+state.settings.goalWeight,1)} kg`;$('goalBar').style.width=pct+'%';$('goalProgressText').innerHTML=`<span><b>${num(t.kgLost,1)} kg down</b> from ${num(+state.settings.startWeight,1)} kg</span><span><b>${num(t.kgToGo,1)} kg to go</b></span>`;$('goalDates').innerHTML=`Projected: <b>${prettyDate(t.projectedGoal)}</b> (${t.projectedDays} days)<br>Selected goal date: <b>${prettyDate(state.settings.goalDate)}</b> (${t.selectedDays} days)`;renderForecastCards();
+ const d=state.selectedDate||t.today,ae=activityEstimate(d);let low7=0,high7=0;for(let i=0;i<7;i++){const x=activityEstimate(addMel(t.today,-i));low7+=x.totalLow;high7+=x.totalHigh}
+ $('activityProgress').innerHTML=`<div class="grid g3"><div class="stat"><span>${prettyDate(d)} steps</span><b>${ae.steps.toLocaleString()}</b><div class="small">~${num(ae.km,1)} km · ${num(ae.stepLow)}–${num(ae.stepHigh)} kcal</div></div><div class="stat"><span>${ae.workout||'Workout'}</span><b>${ae.mins?ae.mins+' min':'No workout'}</b><div class="small">${ae.mins?esc(ae.intensity)+' · '+num(ae.workoutLow)+'–'+num(ae.workoutHigh)+' kcal':'Add workout + minutes in Check-in'}</div></div><div class="stat"><span>Selected-day activity</span><b>${num(ae.totalLow)}–${num(ae.totalHigh)} kcal</b><div class="small">7-day entered activity: ${num(low7)}–${num(high7)} kcal</div></div></div>`;
+}
+
+renderTargets=function(){const t=target(),s=state.settings;$('gw').value=s.goalWeight;$('gd').value=s.goalDate;$('tstatus').innerHTML=`<div class="notice ${t.st.includes('AGGRESSIVE')?'warn':''}"><b>${t.st}</b><br>Current weight ${num(t.w,1)} kg · ${t.selectedDays} days until selected goal date · projected ${prettyDate(t.projectedGoal)}</div>`;$('tvals').innerHTML=[["Current weight",`${num(t.w,1)} kg`],["Maintenance",`${num(t.maint)} kcal`],["Calories",`${num(t.cal)} kcal`],["Protein",`${num(t.pro,1)} g`],["Carbs",`${num(t.carb,1)} g`],["Fat",`${num(t.fat,1)} g`],["Daily deficit",`${num(t.def)} kcal`],["Daily loss",`${num(t.dailyLoss,2)} kg`],["Weekly deficit",`${num(t.weeklyDef)} kcal`],["Weekly loss",`${num(t.weeklyLoss,2)} kg`],["Monthly deficit",`${num(t.monthlyDef)} kcal`],["Monthly loss",`${num(t.monthlyLoss,2)} kg`],["Projected goal date",prettyDate(t.projectedGoal)],["Projected days left",`${t.projectedDays}`],["Selected-date days left",`${t.selectedDays}`]].map(x=>`<div class="foodrow"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')};
+
+charts=function(){let ds=[],w=[],cal=[];for(let i=29;i>=0;i--){let d=addMel(melToday(),-i);ds.push(d);w.push(state.weights?.[d]?.weight??NaN);cal.push(totals(d).k||NaN)}let t=target();line('wc',w,ds.map(d=>{let total=Math.max(1,daysMel(state.settings.startDate,state.settings.goalDate)),p=clamp(daysMel(state.settings.startDate,d)/total,0,1);return state.settings.startWeight+(state.settings.goalWeight-state.settings.startWeight)*p}));line('cc',cal,ds.map(()=>t.cal));renderProgressExtras()};
+renderAll=function(){renderToday();renderFoods();renderTargets();renderProgressExtras();if($('progress').classList.contains('on'))charts()};
+
+$('savecheck').onclick=()=>{const d=state.selectedDate||melToday(),w=+$('weight').value;if(w)state.weights[d]={weight:w,note:''};else delete state.weights[d];state.activities=state.activities||{};state.activities[d]={steps:+$('steps').value||0,workout:$('workout').value,minutes:+$('mins').value||0,intensity:$('intensity').value||'Moderate'};save();renderAll();const m=$('checkmsg');m.textContent=`Check-in saved. Targets recalculated from ${num(weight(melToday()),1)} kg and syncing.`;m.classList.remove('hidden');clearTimeout(window.__checkMsgTimer);window.__checkMsgTimer=setTimeout(()=>m.classList.add('hidden'),3000)};
+$('savetarget').onclick=()=>{state.settings.goalWeight=+$('gw').value||state.settings.goalWeight;state.settings.goalDate=$('gd').value||state.settings.goalDate;save();renderAll()};
+$('date').onchange=e=>{state.selectedDate=e.target.value;save();renderAll()};$('q').oninput=searchFoods;$('cat').onchange=searchFoods;$('libq').oninput=renderFoods;
+
+$('showAdd').onclick=()=>{$('addfood').classList.remove('hidden');$('showAdd').textContent='Custom food form open';setTimeout(()=>{$('addfood').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>$('fn').focus(),300)},30)};
+$('closeAdd').onclick=()=>{$('addfood').classList.add('hidden');$('showAdd').textContent='Add custom food';$('showAdd').scrollIntoView({behavior:'smooth',block:'center'})};
+$('addf').onclick=()=>{let p=+$('fp').value||0,c=+$('fc').value||0,f=+$('ff').value||0,n=$('fn').value.trim();if(!n)return alert('Enter a food name.');let k=$('fk').value===''?p*4+c*4+f*9:+$('fk').value;state.foods.unshift({id:'f_'+Date.now(),name:n,serving:$('fs').value||'1 serve',calories:k,protein:p,carbs:c,fat:f,category:'Custom',source:'Custom'});['fn','fs','fp','fc','ff','fk'].forEach(i=>$(i).value='');save();renderAll();const m=$('foodmsg');m.textContent='Custom food added and syncing.';m.classList.remove('hidden');setTimeout(()=>m.classList.add('hidden'),2600)};
+window.deleteCustomFood=id=>{const f=state.foods.find(x=>x.id===id);if(!f||!(f.category==='Custom'||f.source==='Custom'||f.source==='Estimated from photo'))return;if(!confirm(`Remove "${f.name}" from your food library? Existing logged entries will stay in your history.`))return;state.foods=state.foods.filter(x=>x.id!==id);save();renderAll();const m=$('foodmsg');m.textContent='Custom food removed and syncing.';m.classList.remove('hidden');setTimeout(()=>m.classList.add('hidden'),2600)};
+
+/* Open on the correct Melbourne day once cloud state is ready; manual date navigation works normally afterwards. */
+let melInitialised=false;const readyTimer=setInterval(()=>{if(typeof state!=='undefined'&&state){if(!melInitialised){melInitialised=true;state.selectedDate=melToday()}renderAll();clearInterval(readyTimer)}},120);
 </script>
-<script>
-(function(){
-  const showAdd=document.getElementById('showAdd');
-  const addForm=document.getElementById('addfood');
-  const closeAdd=document.getElementById('closeAdd');
-  if(showAdd&&addForm){
-    showAdd.onclick=function(){
-      addForm.classList.remove('hidden');
-      showAdd.textContent='Custom food form open';
-      setTimeout(function(){
-        addForm.scrollIntoView({behavior:'smooth',block:'start'});
-        setTimeout(function(){document.getElementById('fn')?.focus();},350);
-      },30);
-    };
-  }
-  if(closeAdd&&addForm&&showAdd){
-    closeAdd.onclick=function(){addForm.classList.add('hidden');showAdd.textContent='Add custom food';showAdd.scrollIntoView({behavior:'smooth',block:'center'});};
-  }
-
-  const checkBtn=document.getElementById('savecheck');
-  const oldCheck=checkBtn&&checkBtn.onclick;
-  if(checkBtn){
-    checkBtn.onclick=function(){
-      if(oldCheck) oldCheck.call(this);
-      const m=document.getElementById('checkmsg');
-      if(m){m.classList.remove('hidden');clearTimeout(window.__checkMsgTimer);window.__checkMsgTimer=setTimeout(function(){m.classList.add('hidden');},2600);}
-    };
-  }
-
-  const addBtn=document.getElementById('addf');
-  const oldAdd=addBtn&&addBtn.onclick;
-  if(addBtn){
-    addBtn.onclick=function(){
-      const name=document.getElementById('fn')?.value.trim();
-      if(oldAdd) oldAdd.call(this);
-      if(name){
-        const m=document.getElementById('foodmsg');
-        if(m){m.classList.remove('hidden');m.textContent='Custom food added and syncing.';}
-        setTimeout(function(){if(m)m.classList.add('hidden');},2600);
-      }
-    };
-  }
-
-  renderFoods=function(){
-    let cats=[...new Set(state.foods.map(f=>f.category||'Other'))].sort(),cur=document.getElementById('cat').value;
-    document.getElementById('cat').innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option>${c}</option>`).join('');
-    document.getElementById('cat').value=cur;
-    document.getElementById('count').textContent=`${state.foods.length} foods`;
-    let q=document.getElementById('libq').value.toLowerCase();
-    document.getElementById('lib').innerHTML=state.foods.filter(f=>!q||(`${f.name} ${f.serving}`).toLowerCase().includes(q)).slice(0,180).map(f=>{
-      const custom=f.category==='Custom'||f.source==='Custom';
-      const action=custom?`<div class="foodactions"><div class="macro">${num(f.calories)} kcal · ${num(f.protein,1)}P ${num(f.carbs,1)}C ${num(f.fat,1)}F</div><button class="btn remove" type="button" onclick="deleteCustomFood('${f.id}')">Remove</button></div>`:`<div class="macro">${num(f.calories)} kcal · ${num(f.protein,1)}P ${num(f.carbs,1)}C ${num(f.fat,1)}F</div>`;
-      return `<div class="foodrow"><div><b>${f.name}</b><div class="small">${f.serving} · ${f.category||''}</div></div>${action}</div>`;
-    }).join('');
-  };
-
-  window.deleteCustomFood=function(id){
-    const f=state.foods.find(x=>x.id===id);
-    if(!f||!(f.category==='Custom'||f.source==='Custom'))return;
-    if(!confirm(`Remove "${f.name}" from your food library? Existing logged entries will stay in your history.`))return;
-    state.foods=state.foods.filter(x=>x.id!==id);
-    save();
-    renderAll();
-    const m=document.getElementById('foodmsg');
-    if(m){m.textContent='Custom food removed and syncing.';m.classList.remove('hidden');setTimeout(function(){m.classList.add('hidden');m.textContent='Custom food added and syncing.';},2600);}
-  };
-
-  if(typeof state!=='undefined'&&state)renderFoods();
-})();
-</script>
-</body></html>
+</body>
+</html>
