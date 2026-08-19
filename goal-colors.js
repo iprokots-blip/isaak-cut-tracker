@@ -2,7 +2,7 @@
 (function installGoalColours(){
   const STYLE_ID='lyse-goal-colours';
   const install=()=>{
-    if(typeof window.renderToday!=='function' || !window.state || !document.getElementById('kpis')) return false;
+    if(typeof renderToday!=='function' || typeof state==='undefined' || !state || !document.getElementById('kpis')) return false;
     if(window.__lyseGoalColoursInstalled) return true;
     window.__lyseGoalColoursInstalled=true;
 
@@ -41,12 +41,7 @@
       try{
         const d=state.selectedDate||(typeof melToday==='function'?melToday():new Date().toISOString().slice(0,10));
         const t=target(),x=totals(d);
-        const values={
-          Calories:[x.k,t.cal],
-          Protein:[x.p,t.pro],
-          Carbs:[x.c,t.carb],
-          Fat:[x.f,t.fat]
-        };
+        const values={Calories:[x.k,t.cal],Protein:[x.p,t.pro],Carbs:[x.c,t.carb],Fat:[x.f,t.fat]};
         document.querySelectorAll('#kpis .kpi').forEach(card=>{
           const name=(card.querySelector('span')?.textContent||'').trim();
           const pair=values[name];
@@ -64,8 +59,8 @@
       }catch(e){console.error('Lyse goal colours failed',e)}
     }
 
-    const baseRenderToday=window.renderToday;
-    window.renderToday=function(){
+    const baseRenderToday=renderToday;
+    renderToday=function(){
       const r=baseRenderToday.apply(this,arguments);
       applyGoalColours();
       return r;
@@ -77,6 +72,6 @@
 
   if(!install()){
     let tries=0;
-    const timer=setInterval(()=>{tries++;if(install()||tries>80)clearInterval(timer)},100);
+    const timer=setInterval(()=>{tries++;if(install()||tries>100)clearInterval(timer)},100);
   }
 })();
