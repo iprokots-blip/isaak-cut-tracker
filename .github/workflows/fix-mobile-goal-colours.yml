@@ -60,3 +60,5 @@ jobs:
           git add index.html manifest.webmanifest
           git diff --cached --quiet || git commit -m 'Fix goal colours in installed iPhone app'
           git push
+
+# trigger revision 2
