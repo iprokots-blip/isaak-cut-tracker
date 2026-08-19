@@ -40,3 +40,4 @@ function charts(){let ds=[],w=[],cal=[];for(let i=29;i>=0;i--){let d=add(iso(),-
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll(".page").forEach(p=>p.classList.remove("on"));$(b.dataset.p==="foods"?"foodsPage":b.dataset.p).classList.add("on");if(b.dataset.p==="progress")setTimeout(charts,50)});
 $("date").onchange=e=>{state.selectedDate=e.target.value;save();renderToday()};$("q").oninput=searchFoods;$("cat").onchange=searchFoods;$("libq").oninput=renderFoods;
 boot();
+setTimeout(()=>{const s=document.createElement("script");s.src="./work-addon.js?v=1";document.body.appendChild(s)},0);
