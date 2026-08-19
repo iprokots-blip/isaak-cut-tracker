@@ -124,6 +124,6 @@ window.deleteCustomFood=id=>{const f=state.foods.find(x=>x.id===id);if(!f||!(f.c
 /* Open on the correct Melbourne day once cloud state is ready; manual date navigation works normally afterwards. */
 let melInitialised=false;const readyTimer=setInterval(()=>{if(typeof state!=='undefined'&&state){if(!melInitialised){melInitialised=true;state.selectedDate=melToday()}renderAll();clearInterval(readyTimer)}},120);
 </script>
-<script src="./goal-colors.js?v=1"></script>
+<script src="./goal-colors.js?v=2"></script>
 </body>
 </html>
