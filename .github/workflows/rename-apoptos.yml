@@ -1,0 +1,45 @@
+name: Apply Apoptos branding
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/rename-apoptos.yml'
+      - 'manifest.webmanifest'
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Rename visible app branding
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          replacements={
+            '<meta name="apple-mobile-web-app-title" content="Cut Tracker">':'<meta name="apple-mobile-web-app-title" content="Apoptos">',
+            '<title>Isaak Cut Tracker</title>':'<title>Apoptos</title>',
+            '<h2>Isaak Cut Tracker</h2>':'<h2>Apoptos</h2>',
+            '<h1>Isaak Cut Tracker</h1>':'<h1>Apoptos</h1>',
+            './app.js?v=7':'./app.js?v=8'
+          }
+          for a,b in replacements.items():
+              s=s.replace(a,b)
+          p.write_text(s)
+          PY
+      - name: Commit branding
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Rename visible app branding to Apoptos'
+          git push
