@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/fix-mobile-goal-colours.yml'
+      - 'mobile-colours-trigger.txt'
 
 permissions:
   contents: write
@@ -60,5 +61,3 @@ jobs:
           git add index.html manifest.webmanifest
           git diff --cached --quiet || git commit -m 'Fix goal colours in installed iPhone app'
           git push
-
-# trigger revision 2
