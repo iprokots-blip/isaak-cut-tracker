@@ -1,0 +1,53 @@
+name: Inline Waterfront latte into Lyse
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'waterfront-latte-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Patch Lyse core startup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          p=Path('index.html')
+          s=p.read_text()
+
+          old="""/* Open on the correct Melbourne day once cloud state is ready; manual date navigation works normally afterwards. */
+let melInitialised=false;const readyTimer=setInterval(()=>{if(typeof state!=='undefined'&&state){if(!melInitialised){melInitialised=true;state.selectedDate=melToday()}renderAll();clearInterval(readyTimer)}},120);"""
+
+          new="""/* Open on the correct Melbourne day once cloud state is ready; manual date navigation works normally afterwards. */
+const LYSE_PERSONAL_FOODS=[{id:'f_20260821_waterfront_pantry_iced_latte_small',name:'Waterfront Pantry Iced Latte — Small',serving:'1 small',calories:150,protein:8,carbs:12,fat:8,category:'Custom',source:'Estimated cafe item — full cream milk, no syrup'}];
+let melInitialised=false;const readyTimer=setInterval(()=>{if(typeof state!=='undefined'&&state){if(!melInitialised){melInitialised=true;state.selectedDate=melToday()}let changed=false;state.foods=state.foods||[];for(const item of LYSE_PERSONAL_FOODS){if(!state.foods.some(f=>f.id===item.id||String(f.name||'').toLowerCase()===item.name.toLowerCase())){state.foods.unshift({...item});changed=true;}}renderAll();if(changed)save();clearInterval(readyTimer)}},120);"""
+
+          if old not in s:
+              raise SystemExit('readyTimer block not found')
+          s=s.replace(old,new)
+          s=s.replace('\n<script src="./library-additions.js?v=1"></script>','')
+          s=s.replace('<script src="./app.js?v=9"></script>','<script src="./app.js?v=12"></script>')
+          p.write_text(s)
+
+          m=Path('manifest.webmanifest')
+          data=json.loads(m.read_text())
+          data['start_url']='./?v=lyse-waterfront-latte-20260821'
+          m.write_text(json.dumps(data,indent=2)+'\n')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html manifest.webmanifest
+          git diff --cached --quiet || git commit -m 'Add Waterfront Pantry small iced latte to Lyse core library'
+          git push
