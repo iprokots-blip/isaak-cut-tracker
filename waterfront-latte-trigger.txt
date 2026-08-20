@@ -1,1 +1,1 @@
-apply core latte patch
+apply core latte patch v2
