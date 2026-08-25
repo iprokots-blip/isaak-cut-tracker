@@ -1,7 +1,7 @@
 const BASE="https://jlmqnvyznyaoapjkyjmj.supabase.co";
 const KEY="sb_publishable_gKNmo1rAdNZfg_BWGCehxQ_qfaoD3nj";
 const SESSION_KEY="isaak_cut_tracker_session_v2";
-const PERSONAL_FOODS=[{id:"f_20260821_waterfront_pantry_iced_latte_small",name:"Waterfront Pantry Iced Latte — Small",serving:"1 small",calories:150,protein:8,carbs:12,fat:8,category:"Custom",source:"Estimated cafe item — full cream milk, no syrup"}];
+const PERSONAL_FOODS=[{id:"f_20260821_waterfront_pantry_iced_latte_small",name:"Waterfront Pantry Iced Latte — Small",serving:"1 small",calories:150,protein:8,carbs:12,fat:8,category:"Custom",source:"Estimated cafe item — full cream milk, no syrup"},{id:"f_20260825_black_bowl_egg_noodles_chicken_beef_mixed_veg",name:"Egg Noodles with Chicken & Beef, Mixed Veg — Black Cereal Bowl",serving:"1 black cereal bowl",calories:610,protein:40,carbs:72,fat:17,category:"Custom",source:"Estimated homemade bowl"}];
 let session=null,user=null,state=null,timer=null,saving=false,pollTimer=null;
 const $=x=>document.getElementById(x),num=(v,d=0)=>{v=+v||0;let p=10**d;return Math.round(v*p)/p},iso=()=>new Date().toISOString().slice(0,10);
 const dparse=s=>new Date(s+"T00:00:00"),add=(s,n)=>{let d=dparse(s);d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)},days=(a,b)=>Math.round((dparse(b)-dparse(a))/86400000);
