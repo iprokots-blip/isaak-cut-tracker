@@ -1,1 +1,1 @@
-apply Barbell Meat Stick Bites update
+retry Barbell Meat Stick Bites update
