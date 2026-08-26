@@ -1,0 +1,54 @@
+name: Add meatball sub
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'meatball-sub-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add photo-estimated food to core personal library
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, json
+
+          p=Path('app.js')
+          s=p.read_text()
+          food_id='f_20260826_meatball_sub_photo'
+          obj='{id:"'+food_id+'",name:"Meatball Sub — Photo Estimate",serving:"1 whole sub",calories:800,protein:43,carbs:72,fat:37,category:"Custom",source:"Estimated from photo — meatballs/beef, tomato sauce, cheese and bread"}'
+          if food_id not in s:
+              m=re.search(r'const PERSONAL_FOODS=\[(.*?)\];',s,re.S)
+              if not m:
+                  raise SystemExit('PERSONAL_FOODS not found')
+              inner=m.group(1).strip()
+              replacement='const PERSONAL_FOODS=['+(inner+',' if inner else '')+obj+'];'
+              s=s[:m.start()]+replacement+s[m.end():]
+              p.write_text(s)
+
+          i=Path('index.html')
+          x=i.read_text()
+          x=re.sub(r'<script src="\./app\.js\?v=\d+"></script>','<script src="./app.js?v=15"></script>',x)
+          i.write_text(x)
+
+          mf=Path('manifest.webmanifest')
+          data=json.loads(mf.read_text())
+          data['start_url']='./?v=lyse-meatball-sub-20260826'
+          mf.write_text(json.dumps(data,indent=2)+'\n')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js index.html manifest.webmanifest
+          git diff --cached --quiet || git commit -m 'Add meatball sub photo estimate to Lyse library'
+          git push
