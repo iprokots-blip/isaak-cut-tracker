@@ -1,0 +1,59 @@
+name: Add Indomie and Mushroom Bacon Soup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'indomie-soup-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add foods to core personal library
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, json
+
+          p=Path('app.js')
+          s=p.read_text()
+          items=[
+            ('f_20260826_indomie_mi_goreng_85g','{id:"f_20260826_indomie_mi_goreng_85g",name:"Indomie Mi Goreng Fried Noodles — 85 g Packet",serving:"1 packet (85 g)",calories:376,protein:7.8,carbs:46.2,fat:16.2,category:"Custom",source:"Woolworths branded nutrition listing — 85 g calculated from per 100 g label"}'),
+            ('f_20260826_continental_mushroom_bacon_soup_108','{id:"f_20260826_continental_mushroom_bacon_soup_108",name:"Continental Mushroom & Bacon Soup — 108 kcal Sachet",serving:"1 sachet prepared (250 mL)",calories:108,protein:1.5,carbs:14.8,fat:4.0,category:"Custom",source:"User-confirmed 108 kcal; current Mushroom & Bacon retail-label macros"}')
+          ]
+          m=re.search(r'const PERSONAL_FOODS=\[(.*?)\];',s,re.S)
+          if not m:
+              raise SystemExit('PERSONAL_FOODS not found')
+          inner=m.group(1).strip()
+          for food_id,obj in items:
+              if food_id not in s:
+                  inner=(inner+',' if inner else '')+obj
+                  s='const PERSONAL_FOODS=['+inner+'];'+s[m.end():] if m.start()==0 else s[:m.start()]+'const PERSONAL_FOODS=['+inner+'];'+s[m.end():]
+                  m=re.search(r'const PERSONAL_FOODS=\[(.*?)\];',s,re.S)
+                  inner=m.group(1).strip()
+          p.write_text(s)
+
+          i=Path('index.html')
+          x=i.read_text()
+          x=re.sub(r'<script src="\./app\.js\?v=\d+"></script>','<script src="./app.js?v=16"></script>',x)
+          i.write_text(x)
+
+          mf=Path('manifest.webmanifest')
+          data=json.loads(mf.read_text())
+          data['start_url']='./?v=lyse-indomie-soup-20260826'
+          mf.write_text(json.dumps(data,indent=2)+'\n')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js index.html manifest.webmanifest
+          git diff --cached --quiet || git commit -m 'Add Indomie 85g and mushroom bacon soup to Lyse library'
+          git push
