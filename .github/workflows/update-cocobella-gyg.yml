@@ -1,0 +1,70 @@
+name: Update Cocobella and GYG foods
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cocobella-gyg-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update branded foods and personal food syncing
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, json
+
+          p=Path('app.js')
+          s=p.read_text()
+
+          old_gyg='{id:"f_20260828_gyg_regular_bowl_grilled_chicken",name:"Guzman y Gomez — Regular Grilled Chicken Bowl (Mild)",serving:"1 regular bowl (455 g)",calories:668,protein:41.9,carbs:73.7,fat:22.5,category:"Custom",source:"GYG official nutrition guide — Mild Grilled Chicken Bowl"}'
+          new_gyg='{id:"f_20260828_gyg_regular_bowl_grilled_chicken",name:"Guzman y Gomez — Regular Grilled Chicken Bowl (Mild)",serving:"1 regular bowl (455 g)",calories:659,protein:43.8,carbs:74.1,fat:20.5,category:"Custom",source:"GYG official 2026 nutrition guide — Mild Grilled Chicken Bowl"}'
+          if old_gyg in s:
+              s=s.replace(old_gyg,new_gyg)
+
+          coc_id='f_20260829_cocobella_chocolate_coconut_water_400ml'
+          coc='{id:"'+coc_id+'",name:"Cocobella Chocolate Coconut Water — 400 mL",serving:"1 bottle (400 mL)",calories:112,protein:1.2,carbs:20.4,fat:2.8,category:"Custom",source:"Package label / Cocobella official nutrition"}'
+          if coc_id not in s:
+              m=re.search(r'const PERSONAL_FOODS=\[(.*?)\];',s,re.S)
+              if not m: raise SystemExit('PERSONAL_FOODS not found')
+              inner=m.group(1).strip()
+              repl='const PERSONAL_FOODS=['+(inner+',' if inner else '')+coc+'];'
+              s=s[:m.start()]+repl+s[m.end():]
+
+          old_merge='function mergeSeed(s,base){let current=[...(s.foods||[])],have=new Set(current.map(f=>f.name));let foods=[...current,...(base.foods||[]).filter(f=>!have.has(f.name))];for(const item of PERSONAL_FOODS){if(!foods.some(f=>f.id===item.id||String(f.name||"").toLowerCase()===item.name.toLowerCase()))foods.unshift({...item})}return {...base,...s,foods}}'
+          new_merge='function mergeSeed(s,base){let current=[...(s.foods||[])],have=new Set(current.map(f=>f.name));let foods=[...current,...(base.foods||[]).filter(f=>!have.has(f.name))];for(const item of PERSONAL_FOODS){let i=foods.findIndex(f=>f.id===item.id||String(f.name||"").toLowerCase()===item.name.toLowerCase());if(i>=0)foods[i]={...foods[i],...item};else foods.unshift({...item})}return {...base,...s,foods}}'
+          if old_merge in s:
+              s=s.replace(old_merge,new_merge)
+
+          old_has='function hasPersonalFood(s,item){return(s?.foods||[]).some(f=>f.id===item.id||String(f.name||"").toLowerCase()===item.name.toLowerCase())}'
+          new_has='function hasPersonalFood(s,item){let f=(s?.foods||[]).find(f=>f.id===item.id||String(f.name||"").toLowerCase()===item.name.toLowerCase());if(!f)return false;return ["name","serving","calories","protein","carbs","fat","category","source"].every(k=>String(f[k]??"")===String(item[k]??""))}'
+          if old_has in s:
+              s=s.replace(old_has,new_has)
+
+          p.write_text(s)
+
+          i=Path('index.html')
+          x=i.read_text()
+          x=re.sub(r'<script src="\./app\.js\?v=\d+"></script>','<script src="./app.js?v=21"></script>',x)
+          i.write_text(x)
+
+          mf=Path('manifest.webmanifest')
+          data=json.loads(mf.read_text())
+          data['start_url']='./?v=lyse-cocobella-gyg-20260829'
+          mf.write_text(json.dumps(data,indent=2)+'\n')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js index.html manifest.webmanifest
+          git diff --cached --quiet || git commit -m 'Add Cocobella and refresh GYG macros in Lyse'
+          git push
