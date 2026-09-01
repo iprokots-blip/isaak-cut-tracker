@@ -1,0 +1,80 @@
+name: Add ravioli beef bowl and log today
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ravioli-beef-bowl-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add food and one-time daily log migration
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, json
+
+          p=Path('app.js')
+          s=p.read_text()
+          food_id='f_20260901_ravioli_beef_mince_bowl_greek_yogurt'
+          food_obj='{id:"'+food_id+'",name:"Ravioli Pasta Bowl with Beef Mince, Tomato & Greek Yoghurt — Photo Estimate",serving:"1 bowl",calories:750,protein:45,carbs:78,fat:28,category:"Custom",source:"Estimated from photo — ravioli/pasta, beef mince, onion, tomato sauce and one forkful Greek yoghurt"}'
+
+          if food_id not in s:
+              m=re.search(r'const PERSONAL_FOODS=\[(.*?)\];',s,re.S)
+              if not m:
+                  raise SystemExit('PERSONAL_FOODS not found')
+              inner=m.group(1).strip()
+              replacement='const PERSONAL_FOODS=['+(inner+',' if inner else '')+food_obj+'];'
+              s=s[:m.start()]+replacement+s[m.end():]
+
+          marker='log_20260901_ravioli_beef_bowl_v1'
+          if 'function applyPendingLogMigrations' not in s:
+              needle='function mergeSeed(s,base)'
+              pos=s.find(needle)
+              if pos<0:
+                  raise SystemExit('mergeSeed not found')
+              end=s.find('\nasync function loadCloud',pos)
+              if end<0:
+                  raise SystemExit('loadCloud boundary not found')
+              helper='''\nfunction applyPendingLogMigrations(s){\n s.logs=s.logs||[];s._lyseMigrations=s._lyseMigrations||{};let changed=false;\n const key="log_20260901_ravioli_beef_bowl_v1",id="l_20260901_ravioli_beef_bowl_v1";\n if(!s._lyseMigrations[key]){\n  if(!s.logs.some(x=>x.id===id))s.logs.push({id,date:"2026-09-01",foodId:"f_20260901_ravioli_beef_mince_bowl_greek_yogurt",foodName:"Ravioli Pasta Bowl with Beef Mince, Tomato & Greek Yoghurt — Photo Estimate",serving:"1 bowl",qty:1,calories:750,protein:45,carbs:78,fat:28,notes:"Photo estimate"});\n  s._lyseMigrations[key]=true;changed=true;\n }\n return changed;\n}\n'''
+              s=s[:end]+helper+s[end:]
+          elif marker not in s:
+              raise SystemExit('Existing migration helper does not contain expected marker; refusing unsafe edit')
+
+          save_needle='if(needsPersonalSave){await jsonFetch'
+          if 'applyPendingLogMigrations(state))needsPersonalSave=true;' not in s:
+              if save_needle not in s:
+                  raise SystemExit('needsPersonalSave patch point not found')
+              s=s.replace(save_needle,'if(applyPendingLogMigrations(state))needsPersonalSave=true;'+save_needle,1)
+
+          p.write_text(s)
+
+          i=Path('index.html')
+          x=i.read_text()
+          def bump(m):
+              return './app.js?v='+str(int(m.group(1))+1)
+          x,n=re.subn(r'\./app\.js\?v=(\d+)',bump,x,count=1)
+          if n!=1:
+              raise SystemExit('app.js version reference not found')
+          i.write_text(x)
+
+          mf=Path('manifest.webmanifest')
+          data=json.loads(mf.read_text())
+          data['start_url']='./?v=lyse-ravioli-beef-bowl-20260901'
+          mf.write_text(json.dumps(data,indent=2)+'\n')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js index.html manifest.webmanifest
+          git diff --cached --quiet || git commit -m 'Add ravioli beef bowl to Lyse and log it for Sep 1'
+          git push
